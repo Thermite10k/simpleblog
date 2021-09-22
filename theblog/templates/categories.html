@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}</br>
+<center><h1>{{cats}} Posts</h1></center>
+<ul>
+{% for post in category_posts %}
+	<li><a href="{% url 'article-detail' post.pk %}">{{post.title}} </a>
+	- {{post.category}}
+	- {{post.author.first_name}} {{post.author.last_name}}</br>
+	{{post.body|slice:":200"|safe}}...</li>
+	{% if user.is_authenticated %}
+	<small><a class ='btn btn-success' href="{% url 'edit-post' post.id %}" class='nav-link'>Edit</a></small>
+	<small><a class ='btn btn-danger' href="{% url 'delete-post' post.id %}" class='nav-link'>Delete</a></small>
+	{% endif %}
+{% endfor %}			  
+</ul>
+
+
+{% endblock %}

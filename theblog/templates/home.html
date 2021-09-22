@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}</br>
+<center><h1>Posts</h1></center>
+<ul>
+{% for post in page_obj %}
+	<li><a href="{% url 'article-detail' post.pk %}">{{post.title}} </a>
+	-<a href="{% url 'category' post.category|slugify %}">{{post.category}} </a>	
+	- {{post.author.first_name}} {{post.author.last_name}}</br>
+	{{post.snippet}}</li>
+	
+	{% if user.is_authenticated %}
+		{% if user.id == post.author.id %}
+			<small><a class ='btn btn-success' href="{% url 'edit-post' post.id %}" class='nav-link'>Edit</a></small>
+			<small><a class ='btn btn-danger' href="{% url 'delete-post' post.id %}" class='nav-link'>Delete</a></small>
+		{% endif %}
+	{% endif %}
+{% endfor %}			  
+</ul>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+<nav aria-label="Page navigation example">
+	<!--<ul class="pagination justify-content-center">-->
+  <ul class="pagination">
+  	<li class="page-item"><a class="page-link" href="?page=1">&laquo First</a></li>
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    {% for i in pgz %}
+    <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{forloop.counter}}</a></li>
+    {% endfor %}
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item"><a class="page-link" href="?page={{ venues.paginator.num_pages }}">Last&raquo </a></li>
+  </ul>
+</nav> 
+
+
+
+    
+{% endblock %}

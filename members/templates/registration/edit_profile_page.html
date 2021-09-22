@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+            Edit progile page 
+{% endblock %} 
+{% block content %}
+{% if user.is_authenticated %}
+	{% if user.id == profile.user.id %}
+		<center><h1>Edit profile</h1></center>
+		<div class="form-goup">
+		<form method="POST" enctype="multipart/form-data"><!-- ecoder type allows to use images-->
+			{% csrf_token %}
+			
+			{{ form.as_p }}
+			<button class='btn btn-secondary'>Update profile page</button>
+		</div>
+
+
+	{% else %}
+		<p style="text-align:center;" ><div class="alert alert-danger" style="text-align:center;" role="alert">
+	    
+  		404
+
+		</div></p>
+	{% endif %}
+ {% else %}
+<p style="text-align:center;" ><div class="alert alert-danger" style="text-align:center;" role="alert">
+	    
+  You must be logged in.<a href="{% url 'login2' %}" class="alert-link">Login</a>
+</div></p>
+
+{% endif %}
+
+{% endblock %}

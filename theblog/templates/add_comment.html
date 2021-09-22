@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}
+            Add comment ...
+{% endblock %} 
+{% block content %}
+{% if user.is_authenticated %}
+<center><h1>Add Post</h1></center>
+<div class="form-goup">
+<form method="POST" ><!-- ecoder type allows to use images-->
+	{% csrf_token %}
+
+	{{ form.as_p }}
+	<button class='btn btn-secondary'>post</button>
+</div>
+
+
+{% else %}
+
+
+  
+<p style="text-align:center;" ><div class="alert alert-danger" style="text-align:center;" role="alert">
+	    
+  You must be logged in.<a href="{% url 'login' %}" class="alert-link">Login</a>
+</div></p>
+
+{% endif %}
+
+{% endblock %}

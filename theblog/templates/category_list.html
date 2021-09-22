@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+            Edit blog post ...
+{% endblock %} 
+{% block content %}</br>
+<center><h1>Categories</h1></center>
+<ul class="list-group">
+{% for cat in cat_menu_list %}
+	<li class="list-group-item"><a href="{% url 'category' cat|slugify %}">{{cat}} </a>	
+
+
+{% endfor %}			  
+</ul>
+
+{% endblock %}
